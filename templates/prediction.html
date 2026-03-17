@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FakeShield | Check a Claim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='icons8-facebook-ios-16-filled-32.png') }}" rel="icon">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container nav-row">
+          <a href="/" class="brand">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
+                <path d="M3 12l9 5 9-5"></path>
+                <path d="M3 16l9 5 9-5"></path>
+              </svg>
+            </span>
+            <span>FakeShield</span>
+          </a>
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 7h16"></path>
+              <path d="M4 12h16"></path>
+              <path d="M4 17h16"></path>
+            </svg>
+          </button>
+          <nav class="nav-links" data-nav-menu>
+            <a href="/">Home</a>
+            <a href="/predict" class="active">Check Claim</a>
+            <a href="/#workflow">How It Works</a>
+            <a href="/#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-intro">
+          <div class="container title-row">
+            <div class="reveal">
+              <span class="eyebrow">FakeShield workspace</span>
+              <h1 class="page-title">Paste a claim and inspect the evidence layers.</h1>
+              <p class="page-copy">
+                FakeShield combines a saved fake-news model with live-source comparison so you can move from a suspicious statement to a reviewable evidence set in one place.
+              </p>
+            </div>
+            <div class="pill tag-good reveal delay-1">Responsive claim checker</div>
+          </div>
+        </section>
+
+        <section class="section" style="padding-top: 0.6rem;">
+          <div class="container layout-2col">
+            <div class="form-card reveal">
+              <h2 class="panel-title">Claim input</h2>
+              <p class="panel-subtitle">
+                Enter a short factual statement, quote, or article summary. Specific numbers, dates, and names usually improve the evidence comparison quality.
+              </p>
+
+              {% if error_message %}
+              <div class="alert-card alert-warning">
+                <h3 class="alert-title">Input required</h3>
+                <p>{{ error_message }}</p>
+              </div>
+              {% endif %}
+
+              <form action="/predict" method="POST">
+                <textarea class="textarea" id="news" name="news" placeholder="Example: Today's gold price in Gurgaon stands at 16,237 per gram for 24 karat gold...">{{ submitted_text }}</textarea>
+                <div class="field-hint">
+                  Best results come from a single concrete claim instead of pasting several unrelated points together.
+                </div>
+                <div class="input-toolbar">
+                  <span class="char-count">{{ submitted_text|length if submitted_text else 0 }} characters</span>
+                  <button type="submit" class="btn btn-primary">Analyze with FakeShield</button>
+                </div>
+              </form>
+            </div>
+
+            <aside class="sidebar-card reveal delay-1">
+              <h2 class="panel-title">How to read the result</h2>
+              <p class="panel-subtitle">
+                Treat the two panels separately. One is historical model behavior. The other is live source evidence.
+              </p>
+              <div class="result-card" style="margin-bottom: 1rem;">
+                <h3>Local model verdict</h3>
+                <p>Classifies wording patterns based on the trained repository dataset.</p>
+              </div>
+              <div class="result-card" style="margin-bottom: 1rem;">
+                <h3>Live verification verdict</h3>
+                <p>Summarizes how current source matches and contradictions look right now.</p>
+              </div>
+              <div class="result-card">
+                <h3>Manual review still matters</h3>
+                <p>Open the linked sources before trusting high-stakes claims involving money, health, law, or safety.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        {% if prediction_text or live_verdict %}
+        <section class="section" style="padding-top: 0;">
+          <div class="container">
+            <div class="results-grid">
+              {% if prediction_text %}
+              <div class="alert-card alert-info reveal">
+                <h3 class="alert-title">Local model: {{ prediction_text }}</h3>
+                <p>{{ prediction_detail }}</p>
+                <div class="kpi-grid">
+                  <div class="kpi-card">
+                    <span class="kpi-label">{{ score_label }}</span>
+                    <span class="kpi-value">{{ score_value }}</span>
+                  </div>
+                  <div class="kpi-card">
+                    <span class="kpi-label">Model input length</span>
+                    <span class="kpi-value">{{ cleaned_text|length }}</span>
+                  </div>
+                </div>
+                <div class="preprocessed">
+                  <strong>Preprocessed text</strong><br>
+                  {{ cleaned_text }}
+                </div>
+              </div>
+              {% endif %}
+
+              {% if live_verdict %}
+              <div class="alert-card alert-secondary reveal delay-1">
+                <h3 class="alert-title">Live verification: {{ live_verdict }}</h3>
+                <p>{{ live_summary }}</p>
+                <div class="kpi-grid">
+                  <div class="kpi-card">
+                    <span class="kpi-label">Evidence cards</span>
+                    <span class="kpi-value">{{ live_sources|length }}</span>
+                  </div>
+                  <div class="kpi-card">
+                    <span class="kpi-label">Review mode</span>
+                    <span class="kpi-value">{{ "Online" if live_available else "Offline" }}</span>
+                  </div>
+                  <div class="kpi-card">
+                    <span class="kpi-label">Live provider</span>
+                    <span class="kpi-value">{{ live_provider or "Unavailable" }}</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </section>
+        {% endif %}
+
+        {% if live_sources %}
+        <section class="section" style="padding-top: 0;">
+          <div class="container sources-panel">
+            <div class="sources-panel-header reveal">
+              <div>
+                <span class="eyebrow">Evidence cards</span>
+                <h2 style="margin: 0.9rem 0 0; font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -0.05em;">Live source comparison</h2>
+              </div>
+              <p class="muted" style="max-width: 540px;">
+                Open the linked source when the claim matters. FakeShield helps triage the evidence, but it does not replace manual verification.
+              </p>
+            </div>
+            <div class="sources-list">
+              {% for source in live_sources %}
+              <article class="source-evidence-card reveal">
+                <div class="source-evidence-head">
+                  <div>
+                    <h3><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a></h3>
+                    <div class="source-domain">{{ source.domain }}</div>
+                  </div>
+                  <span class="tag {% if source.status == 'Supports claim' %}tag-good{% elif source.status == 'Possible contradiction' %}tag-warn{% else %}tag-muted{% endif %}">
+                    {{ source.status }}
+                  </span>
+                </div>
+                <div class="source-meta">
+                  <span class="meta-pill">Similarity {{ source.similarity }}</span>
+                  <span class="meta-pill">Trusted source: {{ "Yes" if source.trusted else "No" }}</span>
+                  {% if source.matching_numbers %}
+                  <span class="meta-pill">Matching numbers: {{ source.matching_numbers | join(", ") }}</span>
+                  {% endif %}
+                </div>
+                <p class="muted">{{ source.snippet }}</p>
+              </article>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        {% endif %}
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-shell">
+          <div class="footer-top">
+            <div class="footer-brand">
+              <span class="brand-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
+                  <path d="M3 12l9 5 9-5"></path>
+                  <path d="M3 16l9 5 9-5"></path>
+                </svg>
+              </span>
+              <div>
+                <strong>FakeShield</strong>
+                <div>Claim review workspace with local model scoring, live source lookup, and evidence-first design.</div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Navigation</h4>
+              <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/predict">Check Claim</a>
+                <a href="/#features">Features</a>
+                <a href="/#about">About</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Support</h4>
+              <div class="footer-links">
+                <a href="/#workflow">How It Works</a>
+                <a href="/#contact">Contact</a>
+                <a href="https://github.com/abiek12/Fake-News-Detection-using-MachineLearning" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Direct links</h4>
+              <div class="footer-links">
+                <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+                <a href="/">Back to landing page</a>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div>FakeShield premium UI pass complete.</div>
+            <div>Built on your Flask claim-checking project.</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>

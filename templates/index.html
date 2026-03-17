@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FakeShield</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='icons8-facebook-ios-16-filled-32.png') }}" rel="icon">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container nav-row">
+          <a href="/" class="brand">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
+                <path d="M3 12l9 5 9-5"></path>
+                <path d="M3 16l9 5 9-5"></path>
+              </svg>
+            </span>
+            <span>FakeShield</span>
+          </a>
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 7h16"></path>
+              <path d="M4 12h16"></path>
+              <path d="M4 17h16"></path>
+            </svg>
+          </button>
+          <nav class="nav-links" data-nav-menu>
+            <a href="/" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#workflow">How It Works</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="/predict" class="nav-cta">Check a Claim</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="container hero-grid">
+            <div class="reveal">
+              <span class="eyebrow">Claim intelligence for fast review</span>
+              <h1>FakeShield helps you screen suspicious claims with sharper context.</h1>
+              <p class="hero-copy">
+                Instead of showing one plain classifier label, FakeShield combines local model scoring, live source lookup, similarity signals, and readable evidence cards in one responsive workspace.
+              </p>
+              <div class="hero-actions">
+                <a href="/predict" class="btn btn-primary">Launch FakeShield</a>
+                <a href="#workflow" class="btn btn-secondary">Explore workflow</a>
+              </div>
+              <div class="hero-metrics">
+                <div class="metric-card reveal delay-1">
+                  <span class="metric-value">Hybrid</span>
+                  <span class="metric-label">Offline ML and live-source review in the same flow</span>
+                </div>
+                <div class="metric-card reveal delay-2">
+                  <span class="metric-value">Responsive</span>
+                  <span class="metric-label">Cleaner layout for desktop, tablet, and mobile screens</span>
+                </div>
+                <div class="metric-card reveal delay-3">
+                  <span class="metric-value">Evidence-first</span>
+                  <span class="metric-label">Source cards ranked for quick manual verification</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-panel reveal delay-2">
+              <div class="hero-visual-top">
+                <span class="status-chip">System status: <strong>live lookup ready</strong></span>
+                <span class="pill tag-good">Premium review flow</span>
+              </div>
+              <div class="hero-visual-main">
+                <div class="score-head">
+                  <strong>Claim snapshot</strong>
+                  <span class="pill tag-muted">Updated experience</span>
+                </div>
+                <p class="muted" style="color: rgba(255,255,255,0.78);">
+                  "Today's gold price in Gurgaon stands at 16,237 per gram for 24 karat gold..."
+                </p>
+                <div class="score-stack">
+                  <div class="score-card">
+                    <div class="score-head">
+                      <strong>Local model confidence</strong>
+                      <span>82%</span>
+                    </div>
+                    <div class="progress-track">
+                      <div class="progress-bar" style="width: 82%;"></div>
+                    </div>
+                  </div>
+                  <div class="score-card">
+                    <div class="score-head">
+                      <strong>Live source alignment</strong>
+                      <span>3 matching signals</span>
+                    </div>
+                    <div class="progress-track">
+                      <div class="progress-bar" style="width: 68%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-sources">
+                <div class="source-row">
+                  <div>
+                    <strong>moneycontrol.com</strong>
+                    <div class="source-domain">Market and commodity reporting</div>
+                  </div>
+                  <span class="tag tag-good">Supports claim</span>
+                </div>
+                <div class="source-row">
+                  <div>
+                    <strong>livemint.com</strong>
+                    <div class="source-domain">Finance coverage for comparison</div>
+                  </div>
+                  <span class="tag tag-warn">Needs review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="section">
+          <div class="container">
+            <div class="section-header reveal">
+              <div>
+                <span class="eyebrow">Why FakeShield feels stronger</span>
+                <h2>Designed like a product, not a classroom demo</h2>
+              </div>
+              <p>
+                The UI now frames the tool around evidence review, not just prediction. Cards react on hover, sections reveal progressively, and the layout stays cleaner across narrow screens.
+              </p>
+            </div>
+            <div class="grid-4">
+              <article class="feature-card reveal delay-1">
+                <div class="feature-icon">01</div>
+                <h3>Live source lookup</h3>
+                <p>Fetches current source results and presents them as usable evidence rather than raw search output.</p>
+              </article>
+              <article class="feature-card reveal delay-2">
+                <div class="feature-icon">02</div>
+                <h3>Dual-signal reading</h3>
+                <p>Separates local model judgment from live verification so you can spot disagreement quickly.</p>
+              </article>
+              <article class="feature-card reveal delay-3">
+                <div class="feature-icon">03</div>
+                <h3>Premium interactions</h3>
+                <p>Hover elevation, softer motion, refined spacing, and stronger typography make the interface easier to scan.</p>
+              </article>
+              <article class="feature-card reveal delay-4">
+                <div class="feature-icon">04</div>
+                <h3>Mobile-ready workflow</h3>
+                <p>Responsive grid behavior and a navigation toggle keep the interface usable on smaller screens.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="workflow" class="section">
+          <div class="container">
+            <div class="section-header reveal">
+              <div>
+                <span class="eyebrow">How it works</span>
+                <h2>One flow from claim to source review</h2>
+              </div>
+              <p>
+                FakeShield is still a review tool, not a final truth engine. The goal is to help you move from suspicion to evidence faster and with less noise.
+              </p>
+            </div>
+            <div class="steps-grid">
+              <article class="step-card reveal delay-1">
+                <div class="step-no">1</div>
+                <h3>Paste a clean claim</h3>
+                <p>Enter one factual statement, quote, or short summary instead of multiple unrelated points.</p>
+              </article>
+              <article class="step-card reveal delay-2">
+                <div class="step-no">2</div>
+                <h3>Read the two verdicts</h3>
+                <p>The saved model scores the wording pattern, while live lookup checks what current sources seem to support or contradict.</p>
+              </article>
+              <article class="step-card reveal delay-3">
+                <div class="step-no">3</div>
+                <h3>Inspect source evidence</h3>
+                <p>Open the linked evidence cards, compare numbers, and confirm the publication source before trusting the claim.</p>
+              </article>
+            </div>
+            <div class="highlight-band reveal delay-4">
+              <strong>Important:</strong>
+              FakeShield helps with rapid verification triage. It should still be backed by manual review for medical, legal, financial, or other high-stakes claims.
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="container about-grid">
+            <div class="section-card reveal" style="padding: 1.6rem;">
+              <span class="eyebrow">About FakeShield</span>
+              <h2 style="margin: 1rem 0 0.8rem; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.05em;">Built from your Flask fake-news project, refined into a sharper verification interface.</h2>
+              <p class="muted">
+                The original repository focused on a stored model. FakeShield extends it with a better homepage, a more usable checking workspace, live evidence cards, and an interface that feels closer to a real product.
+              </p>
+              <div class="source-list" style="margin-top: 1.2rem;">
+                <article class="source-card reveal delay-1">
+                  <h3>Where it works best</h3>
+                  <p>Breaking public claims, company announcements, pricing headlines, and statements that should already have trustworthy reporting around them.</p>
+                </article>
+                <article class="source-card reveal delay-2">
+                  <h3>Where caution is required</h3>
+                  <p>New rumors, thinly covered local stories, and claims that require deep investigative work or primary documents beyond search results.</p>
+                </article>
+              </div>
+            </div>
+
+            <div id="contact" class="contact-card reveal delay-2">
+              <span class="eyebrow">Contact</span>
+              <h3 style="margin: 1rem 0 0.7rem; font-size: 2rem; letter-spacing: -0.04em;">Need to extend FakeShield further?</h3>
+              <p class="muted">
+                You can continue this project by adding direct fact-check APIs, date extraction, source freshness scoring, and domain-specific trusted-source packs.
+              </p>
+              <div class="contact-list">
+                <a class="contact-link" href="/predict">Open the claim checker</a>
+                <a class="contact-link" href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+                <a class="contact-link" href="https://github.com/abiek12/Fake-News-Detection-using-MachineLearning" target="_blank" rel="noopener noreferrer">Project source on GitHub</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-shell">
+          <div class="footer-top">
+            <div class="footer-brand">
+              <span class="brand-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
+                  <path d="M3 12l9 5 9-5"></path>
+                  <path d="M3 16l9 5 9-5"></path>
+                </svg>
+              </span>
+              <div>
+                <strong>FakeShield</strong>
+                <div>Hybrid claim screening with model scoring, live evidence lookup, and a cleaner review experience.</div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Navigation</h4>
+              <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/predict">Check Claim</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Sections</h4>
+              <div class="footer-links">
+                <a href="#workflow">How It Works</a>
+                <a href="#contact">Contact</a>
+                <a href="https://github.com/abiek12/Fake-News-Detection-using-MachineLearning" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="footer-title">Contact</h4>
+              <div class="footer-links">
+                <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+                <a href="/predict">Run a claim</a>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div>FakeShield UI polish for your real-time claim-checking project.</div>
+            <div>Designed for responsive review on March 12, 2026.</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>
