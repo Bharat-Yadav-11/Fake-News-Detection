@@ -103,12 +103,3 @@ To get started with this project, follow these steps:
    ```
 
 Access the application in your web browser by navigating to `http://localhost:5000`.
-
----
-
-**Author**
-- Bharat Bhushan (https://github.com/bharat-yadav-11)
-
-- If you have any questions or need further assistance, feel free to contact us at bharatyadav@gmail.com
-
----
